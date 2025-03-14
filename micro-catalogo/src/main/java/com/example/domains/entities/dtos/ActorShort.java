@@ -4,5 +4,4 @@ public interface ActorShort {
 	int getActorId();
 	String getNombre();
 	
-
 }
