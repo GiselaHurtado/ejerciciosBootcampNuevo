@@ -1,8 +1,19 @@
 package com.example.domains.contracts.services;
 
-import com.example.domains.core.contracts.services.DomainService;
-import com.example.domains.entities.Actor;
+import java.util.List;
+import java.util.Optional;
 
-public interface ActoresService extends DomainService<Actor, Integer> {
-	void repartePremios();
+import com.example.domains.entities.Actor;
+import com.example.exceptions.DuplicateKeyException;
+import com.example.exceptions.InvalidDataException;
+import com.example.exceptions.NotFoundException;
+
+public interface ActoresService {
+    List<Actor> getAll();
+    Optional<Actor> getOne(Integer id);
+    Actor add(Actor item) throws DuplicateKeyException, InvalidDataException;
+    Actor modify(Actor item) throws NotFoundException, InvalidDataException;
+    void delete(Actor item) throws InvalidDataException;
+    void deleteById(Integer id) throws InvalidDataException;
+    void repartePremios();
 }

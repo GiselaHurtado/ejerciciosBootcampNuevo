@@ -25,10 +25,11 @@ public class MicroCatalogoApplication implements CommandLineRunner {
 	private ActoresRepository dao;
 	
 	private void ejemplosDatos() {
-		var actor = new Actor(0, "Peoito", "Grillo");
-		//var item = dao.findById(204);
+		var actor = new Actor(0, null, "IAN MIKU");
+		//if(actor.isValid());
 		dao.save(actor);
-		dao.findAll().forEach(System.err::println);
+		//else {
+		System.err.println(actor.getErrorsMessage());
+	}
 	}
 
-}
