@@ -10,10 +10,16 @@ import com.example.exceptions.NotFoundException;
 
 public interface ActoresService {
     List<Actor> getAll();
+    
     Optional<Actor> getOne(Integer id);
+    
     Actor add(Actor item) throws DuplicateKeyException, InvalidDataException;
+    
     Actor modify(Actor item) throws NotFoundException, InvalidDataException;
+   
     void delete(Actor item) throws InvalidDataException;
+   
     void deleteById(Integer id) throws InvalidDataException;
+    
     void repartePremios();
 }
