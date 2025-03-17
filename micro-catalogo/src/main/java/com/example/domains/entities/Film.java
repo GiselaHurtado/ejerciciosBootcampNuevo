@@ -14,6 +14,7 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -49,8 +50,9 @@ public class Film implements Serializable {
 
 	@Column(length=10)
 	@Pattern(regexp = "^(G|PG|PG-13|R|NC-17)$", message = "La clasificación debe ser G, PG, PG-13, R o NC-17")
-	private String rating = "G";
-	
+	private String rating;
+	 
+
 	
 	@Column(name="release_year")
 	@Min(value = 1800, message = "El año de lanzamiento debe ser mayor o igual a 1800")
@@ -235,5 +237,6 @@ public class Film implements Serializable {
 
 		return filmCategory;
 	}
+
 
 }

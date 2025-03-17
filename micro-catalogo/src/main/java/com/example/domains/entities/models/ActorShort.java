@@ -1,4 +1,4 @@
-package com.example.domains.entities.dtos;
+package com.example.domains.entities.models;
 
 
 import org.springframework.beans.factory.annotation.Value;

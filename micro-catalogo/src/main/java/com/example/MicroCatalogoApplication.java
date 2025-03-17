@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.domains.contracts.repositories.ActoresRepository;
 import com.example.domains.contracts.services.ActoresService;
-import com.example.domains.entities.dtos.ActorDTO;
-import com.example.domains.entities.dtos.ActorShort;
+import com.example.domains.entities.models.ActorDTO;
+import com.example.domains.entities.models.ActorShort;
 
 import jakarta.transaction.Transactional;
 
