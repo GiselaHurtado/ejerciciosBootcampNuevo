@@ -1,11 +1,21 @@
 package com.example.domains.entities.models;
 
+import com.example.domains.entities.Actor;
 
-import org.springframework.beans.factory.annotation.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Value;
 
-public interface ActorShort {
-	@Value("#{target.actorId}")
-	int getId();
-	@Value("#{target.lastName + ', ' + target.firstName}")
-	String getNombre();
+@Value
+@AllArgsConstructor
+public class ActorShort {
+    int actorId;
+    String nombre;
+    
+    public static ActorShort from(Actor source) {
+        return new ActorShort(
+                source.getActorId(), 
+                source.getFirstName() + " " + source.getLastName()
+                );
+    }
 }

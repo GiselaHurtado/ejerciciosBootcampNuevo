@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.example.domains.contracts.repositories.ActoresRepository;
@@ -120,7 +119,8 @@ class ActoresServiceImplTest {
     }
     
     @Test
-    void testDelete() throws InvalidDataException {
+    void testDelete() throws InvalidDataException, NotFoundException {
+        when(dao.existsById(1)).thenReturn(true);
         doNothing().when(dao).delete(actor1);
         
         service.delete(actor1);
@@ -129,7 +129,21 @@ class ActoresServiceImplTest {
     }
     
     @Test
-    void testDeleteById() throws InvalidDataException {
+    void testDelete_NotFound() {
+        when(dao.existsById(99)).thenReturn(false);
+        Actor nonExistentActor = new Actor(99, "UNKNOWN", "ACTOR");
+        
+        assertThrows(NotFoundException.class, () -> service.delete(nonExistentActor));
+    }
+    
+    @Test
+    void testDelete_InvalidData() {
+        assertThrows(InvalidDataException.class, () -> service.delete(null));
+    }
+    
+    @Test
+    void testDeleteById() throws NotFoundException {
+        when(dao.existsById(1)).thenReturn(true);
         doNothing().when(dao).deleteById(1);
         
         service.deleteById(1);
@@ -137,7 +151,12 @@ class ActoresServiceImplTest {
         verify(dao, times(1)).deleteById(1);
     }
     
- 
+    @Test
+    void testDeleteById_NotFound() {
+        when(dao.existsById(99)).thenReturn(false);
+        
+        assertThrows(NotFoundException.class, () -> service.deleteById(99));
+    }
 
     @Test
     void testRepartePremios() {

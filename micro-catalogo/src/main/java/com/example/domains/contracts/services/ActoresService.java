@@ -17,9 +17,9 @@ public interface ActoresService {
     
     Actor modify(Actor item) throws NotFoundException, InvalidDataException;
    
-    void delete(Actor item) throws InvalidDataException;
+    void delete(Actor item) throws InvalidDataException, NotFoundException;
    
-    void deleteById(Integer id) throws InvalidDataException;
+    void deleteById(Integer id) throws InvalidDataException, NotFoundException;
     
     void repartePremios();
 }
