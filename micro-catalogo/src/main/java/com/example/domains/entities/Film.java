@@ -2,6 +2,16 @@ package com.example.domains.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
@@ -20,37 +30,54 @@ public class Film implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="film_id", unique=true, nullable=false)
+	@Min(value = 1, message = "El ID de la película debe ser mayor o igual a 1")
+    @Max(value = 65535, message = "El ID de la película debe ser menor o igual a 65535")
 	private int filmId;
 
 	@Lob
+	@Size(max = 10000, message = "La descripción no puede exceder los 10000 caracteres")
 	private String description;
 
-	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
+	@Column(name = "last_update", insertable = false, updatable = false, nullable = false)
+    @PastOrPresent(message = "La fecha de última actualización debe ser en el pasado o presente")
+    @Null(message = "La fecha de actualización se asigna automáticamente")
 	private Timestamp lastUpdate;
 
+	 @Column(nullable = false)
+	@Min(value = 0, message = "La duración no puede ser negativa")
 	private int length;
 
-	@Column(length=1)
-	private String rating;
-
+	@Column(length=10)
+	@Pattern(regexp = "^(G|PG|PG-13|R|NC-17)$", message = "La clasificación debe ser G, PG, PG-13, R o NC-17")
+	private String rating = "G";
+	
+	
 	@Column(name="release_year")
+	@Min(value = 1800, message = "El año de lanzamiento debe ser mayor o igual a 1800")
+    @Max(value = 2100, message = "El año de lanzamiento debe ser menor o igual a 2100")
 	private Short releaseYear;
 
 	@Column(name="rental_duration", nullable=false)
-	private byte rentalDuration;
+	@Min(value = 1, message = "La duración del alquiler debe ser mayor o igual a 1")
+	private byte rentalDuration = 3;
 
 	@Column(name="rental_rate", nullable=false, precision=10, scale=2)
 	private BigDecimal rentalRate;
 
 	@Column(name="replacement_cost", nullable=false, precision=10, scale=2)
+	@DecimalMin(value = "0.01", message = "La tarifa de alquiler debe ser mayor o igual a 0.01")
 	private BigDecimal replacementCost;
 
-	@Column(nullable=false, length=128)
+		
+	@Column(nullable = false, length = 128)
+	@NotBlank(message = "El título no puede estar vacío")
+	@Size(max = 128, min = 2, message = "El título debe tener entre 2 y 128 caracteres")
 	private String title;
 
 	//bi-directional many-to-one association to Language
 	@ManyToOne
 	@JoinColumn(name="language_id", nullable=false)
+	@NotNull(message = "El idioma no puede ser nulo")
 	private Language language;
 
 	//bi-directional many-to-one association to Language
