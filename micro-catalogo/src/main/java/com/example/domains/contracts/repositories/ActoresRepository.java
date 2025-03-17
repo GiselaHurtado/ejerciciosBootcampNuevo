@@ -1,5 +1,5 @@
 package com.example.domains.contracts.repositories;
-package com.example.domains.contracts.repositories;
+
 
 import java.util.List;
 
