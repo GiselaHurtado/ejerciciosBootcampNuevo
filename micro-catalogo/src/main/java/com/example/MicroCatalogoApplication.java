@@ -6,7 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.domains.contracts.repositories.ActoresRepository;
-import com.example.domains.contracts.services.ActoresService;
+import com.example.domains.contracts.services.ActoresServiceTest;
 import com.example.domains.entities.models.ActorDTO;
 import com.example.domains.entities.models.ActorShort;
 
@@ -30,7 +30,7 @@ public class MicroCatalogoApplication implements CommandLineRunner {
 	private ActoresRepository dao;
 	
 	@Autowired
-	private ActoresService srv;
+	private ActoresServiceTest srv;
 	
 	private void ejemplosDatos() {
 		//var actor = new Actor(0, null, "IAN MIKU");
@@ -43,11 +43,11 @@ public class MicroCatalogoApplication implements CommandLineRunner {
 	}
 		//System.err.println(actor.getErrorsMessage());
 
-	public ActoresService getSrv() {
+	public ActoresServiceTest getSrv() {
 		return srv;
 	}
 
-	public void setSrv(ActoresService srv) {
+	public void setSrv(ActoresServiceTest srv) {
 		this.srv = srv;
 	}
 	}
