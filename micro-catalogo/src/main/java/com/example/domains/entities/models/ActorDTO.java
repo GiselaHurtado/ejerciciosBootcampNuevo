@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @AllArgsConstructor @NoArgsConstructor
+@Data @AllArgsConstructor 
 public class ActorDTO {
     @JsonProperty("id")
     private int actorId;

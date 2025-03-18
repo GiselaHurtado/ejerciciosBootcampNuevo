@@ -6,7 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.domains.contracts.repositories.ActoresRepository;
-import com.example.domains.contracts.services.ActoresServiceTest;
+import com.example.domains.contracts.services.ActoresService;
+
 import com.example.domains.entities.models.ActorDTO;
 import com.example.domains.entities.models.ActorShort;
 
@@ -30,7 +31,7 @@ public class MicroCatalogoApplication implements CommandLineRunner {
 	private ActoresRepository dao;
 	
 	@Autowired
-	private ActoresServiceTest srv;
+	private ActoresService srv;
 	
 	private void ejemplosDatos() {
 		//var actor = new Actor(0, null, "IAN MIKU");
@@ -39,15 +40,15 @@ public class MicroCatalogoApplication implements CommandLineRunner {
 		//else {
 		dao.findByActorIdGreaterThan(200).forEach(System.err::println);
 		dao.findByActorIdGreaterThan(200, ActorDTO.class).forEach(System.err::println);
-		dao.findByActorIdGreaterThan(200, ActorShort.class).forEach(o -> System.err.println(o.getId() + " " + o.getNombre()));
+		dao.findByActorIdGreaterThan(200, ActorShort.class).forEach(o -> System.err.println(o.getActorId() + " " + o.getNombre()));
 	}
 		//System.err.println(actor.getErrorsMessage());
 
-	public ActoresServiceTest getSrv() {
+	public ActoresService getSrv() {
 		return srv;
 	}
 
-	public void setSrv(ActoresServiceTest srv) {
+	public void setSrv(ActoresService srv) {
 		this.srv = srv;
 	}
 	}
