@@ -30,7 +30,9 @@ public class Actor implements Serializable, EntityBase<Actor> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "actor_id")
-    private int actorId;
+    private Integer actorId;
+    
+    
 
     @NotBlank
     @Size(max = 45, min = 2)
@@ -53,21 +55,23 @@ public class Actor implements Serializable, EntityBase<Actor> {
     public Actor() {
     }
 
-    public Actor(int actorId) {
+    public Actor(Integer actorId) {
         this.actorId = actorId;
     }
 
-    public Actor(int actorId, String firstName, String lastName) {
+    public Actor(Integer actorId, String firstName, String lastName) {
         this.actorId = actorId;
         this.firstName = firstName;
         this.lastName = lastName;
     }
+    
+    
 
-    public int getActorId() {
+    public Integer getActorId() {
         return this.actorId;
     }
 
-    public void setActorId(int actorId) {
+    public void setActorId(Integer actorId) {
         this.actorId = actorId;
     }
 
