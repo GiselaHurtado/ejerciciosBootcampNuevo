@@ -7,5 +7,5 @@ import com.example.domains.core.contracts.repositories.ProjectionsAndSpecificati
 import com.example.domains.entities.Film;
 
 public interface FilmRepository extends ProjectionsAndSpecificationJpaRepository<Film, Integer> {
-	List<Film> findByLastUpdateGreaterThanEqualOrderByLastUpdate(Timestamp fecha);
+    List<Film> findByLastUpdateGreaterThanEqualOrderByLastUpdate(Timestamp fecha);
 }

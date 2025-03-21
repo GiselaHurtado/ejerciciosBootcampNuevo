@@ -1,25 +1,21 @@
 package com.example.domains.contracts.services;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
+import com.example.domains.core.contracts.services.ProjectionDomainService;
 import com.example.domains.entities.Actor;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
-public interface ActoresService {
-    List<Actor> getAll();
-    
-    Optional<Actor> getOne(Integer id);
-    
-    Actor add(Actor item) throws DuplicateKeyException, InvalidDataException;
-    
-    Actor modify(Actor item) throws NotFoundException, InvalidDataException;
-   
-    void delete(Actor item) throws InvalidDataException, NotFoundException;
-   
-    void deleteById(Integer id) throws InvalidDataException, NotFoundException;
-    
+public interface ActoresService extends ProjectionDomainService<Actor, Integer> {
     void repartePremios();
+
+    List<Actor> novedades(Timestamp fecha);
 }

@@ -1,6 +1,5 @@
 package com.example.domains.entities.models;
 
-
 import com.example.domains.entities.Film;
 import com.fasterxml.jackson.annotation.JsonProperty;
 

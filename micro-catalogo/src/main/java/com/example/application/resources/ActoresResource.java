@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,6 +49,7 @@ public class ActoresResource {
 	//record Titulos(int id, String titulo){}
 	
 	
+	
 	@GetMapping(path = "/{id}/pelis")
 
 	public ActorDTO getPeliculas(@PathVariable int id) throws NotFoundException {
@@ -79,7 +79,7 @@ public class ActoresResource {
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable int id) {
+	public void delete(@PathVariable int id) throws NotFoundException {
 		srv.deleteById(id);
 	}
 }

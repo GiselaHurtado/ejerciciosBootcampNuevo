@@ -1,6 +1,7 @@
 package com.example.domains.entities.models;
 
 
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -21,8 +22,7 @@ public class FilmDetailsDTO {
 //	@Schema(description = "La duración de la película, en minutos")
 	private Integer length;
 //	@Schema(description = "La clasificación por edades asignada a la película", allowableValues = {"G", "PG", "PG-13", "R", "NC-17"})
-	private String rating;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy")
+
 //	@Schema(description = "El año en que se estrenó la película")
 	private Short releaseYear;
 //	@Schema(description = "La duración del período de alquiler, en días")
@@ -49,7 +49,6 @@ public class FilmDetailsDTO {
 				source.getFilmId(), 
 				source.getDescription(),
 				source.getLength(),
-				source.getRating() == null ? null : source.getRating().getValue(),
 				source.getReleaseYear(),
 				source.getRentalDuration(),
 				source.getRentalRate(),

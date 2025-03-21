@@ -2,15 +2,7 @@ package com.example.domains.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Objects;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "film_actor")
@@ -18,70 +10,48 @@ public class FilmActor implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private FilmActorPK id;
+    private FilmActorPK id = new FilmActorPK();
 
-    @Column(name = "last_update", insertable = false, updatable = false, nullable = false)
+    @Column(name = "last_update", nullable = false)
     private Timestamp lastUpdate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("actorId")
-    @JoinColumn(name = "actor_id", referencedColumnName = "actor_id", insertable = false, updatable = false)
+    @JoinColumn(name = "actor_id")
     private Actor actor;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("filmId")
-    @JoinColumn(name = "film_id", referencedColumnName = "film_id", insertable = false, updatable = false)
+    @JoinColumn(name = "film_id")
     private Film film;
 
     public FilmActor() {
+        this.id = new FilmActorPK();
     }
 
-    public FilmActorPK getId() {
-        return this.id;
-    }
+    public FilmActor(Film film2, Actor actor2) {
+		// TODO Auto-generated constructor stub
+	}
 
-    public void setId(FilmActorPK id) {
-        this.id = id;
-    }
+	public FilmActorPK getId() { return id; }
+    public void setId(FilmActorPK id) { this.id = id; }
 
-    public Timestamp getLastUpdate() {
-        return this.lastUpdate;
-    }
+    public Timestamp getLastUpdate() { return lastUpdate; }
+    public void setLastUpdate(Timestamp lastUpdate) { this.lastUpdate = lastUpdate; }
 
-    public void setLastUpdate(Timestamp lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
+    public Actor getActor() { return actor; }
+    public void setActor(Actor actor) { 
+    	this.actor = actor;
+    	this.id.setActorId(actor.getActorId());}
+    
+    
 
-    public Actor getActor() {
-        return actor;
-    }
+    public Film getFilm() { return film; }
+    public void setFilm(Film film) { this.film = film;
+    this.id.setFilmId(film.getFilmId()); }
 
-    public void setActor(Actor actor) {
-        this.actor = actor;
-    }
-
-    public Film getFilm() {
-        return film;
-    }
-
-    public void setFilm(Film film) {
-        this.film = film;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        FilmActor other = (FilmActor) obj;
-        return Objects.equals(id, other.id);
-    }
+	public Object prePersiste() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

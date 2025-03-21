@@ -162,7 +162,7 @@ class ActoresServiceTest {
     }
     
     @Test
-    void testDelete() throws InvalidDataException {
+    void testDelete() throws InvalidDataException, NotFoundException {
       
         doNothing().when(dao).delete(actor1);
         
@@ -174,7 +174,7 @@ class ActoresServiceTest {
     }
     
     @Test
-    void testDeleteById() throws InvalidDataException {
+    void testDeleteById() throws InvalidDataException, NotFoundException {
        
         doNothing().when(dao).deleteById(1);
         

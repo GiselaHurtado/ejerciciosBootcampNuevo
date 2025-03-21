@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -139,6 +140,11 @@ public class Actor implements Serializable, EntityBase<Actor> {
 	}
 
 	public String getErrorsMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Map<String, String> getErrorsFields() {
 		// TODO Auto-generated method stub
 		return null;
 	}

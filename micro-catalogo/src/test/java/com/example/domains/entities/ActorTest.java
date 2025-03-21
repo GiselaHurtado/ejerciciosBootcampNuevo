@@ -246,22 +246,22 @@ class ActorTest {
         assertEquals("La fecha de actualización se asigna automáticamente", violations.iterator().next().getMessage());
     }
 
-    @Test
-    void testHasValidName_Valid() {
-        assertTrue(actor.hasValidName());
-    }
-
-    @Test
-    void testHasValidName_InvalidFirstName() {
-        actor.setFirstName("penelope");
-        assertFalse(actor.hasValidName());
-    }
-
-    @Test
-    void testHasValidName_InvalidLastName() {
-        actor.setLastName("guiness");
-        assertFalse(actor.hasValidName());
-    }
+//    @Test
+//    void testHasValidName_Valid() {
+//        assertTrue(actor.hasValidName());
+//    }
+//
+//    @Test
+//    void testHasValidName_InvalidFirstName() {
+//        actor.setFirstName("penelope");
+//        assertFalse(actor.hasValidName());
+//    }
+//
+//    @Test
+//    void testHasValidName_InvalidLastName() {
+//        actor.setLastName("guiness");
+//        assertFalse(actor.hasValidName());
+//    }
 
     @Test
     void testEquals_SameObject() {

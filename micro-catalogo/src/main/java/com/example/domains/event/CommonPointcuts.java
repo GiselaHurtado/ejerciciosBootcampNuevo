@@ -1,7 +1,5 @@
 package com.example.domains.event;
 
-
-
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
@@ -9,28 +7,28 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class CommonPointcuts {
-	@Pointcut("execution(public * com.example..*.*(..))")
-	public void cualquierMetodoPublico() {}
 
-	@Pointcut("this(com.example.domains.contracts.repositories)")
-	public void repositorios() {}
+    @Pointcut("execution(public * com.example..*.*(..))")
+    public void cualquierMetodoPublico() {}
 
-	@Pointcut("this(com.example.domains.services)") // execution(* com.example.domains.services..*.modify(..))
-	public void servicios() {}
+    @Pointcut("within(com.example.domains.contracts.repositories..*)")
+    public void repositorios() {}
 
-	@Pointcut("execution(* *.add(..))")
-	public void metodosAdd() {}
+    @Pointcut("within(com.example.domains.services..*)")
+    public void servicios() {}
 
-	@Pointcut("execution(* *.modify(..))")
-	public void metodosModify() {}
+    @Pointcut("execution(* com.example.domains.contracts.services.*.add(..))")
+    public void metodosAdd() {}
 
-	@Pointcut("execution(* com.example..*.delete(..))")
-	public void metodosDelete() {}
+    @Pointcut("execution(* com.example.domains.contracts.services.*.modify(..))")
+    public void metodosModify() {}
 
-	@Pointcut("execution(* com.example..*.deleteById(int))")
-	public void metodosDeleteById() {}
+    @Pointcut("execution(* com.example.domains.contracts.services.*.delete(..))")
+    public void metodosDelete() {}
 
-	@Pointcut("(metodosAdd() || metodosSave() || metodosDelete()) && (repositorios() || servicios())")
-	public void requiredAuthentication() {}
+    @Pointcut("execution(* com.example.domains.contracts.services.*.deleteById(..))")
+    public void metodosDeleteById() {}
 
+    @Pointcut("(metodosAdd() || metodosModify() || metodosDelete() || metodosDeleteById()) && (repositorios() || servicios())")
+    public void requiredAuthentication() {}
 }

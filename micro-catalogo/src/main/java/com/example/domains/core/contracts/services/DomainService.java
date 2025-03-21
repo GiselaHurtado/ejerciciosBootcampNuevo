@@ -18,6 +18,6 @@ public interface DomainService<E, K> {
 	
 	E modify(E item) throws NotFoundException, InvalidDataException;
 	
-	void delete(E item) throws InvalidDataException;
-	void deleteById(K id);
+	void delete(E item) throws InvalidDataException, NotFoundException;
+	void deleteById(K id) throws NotFoundException;
 }
