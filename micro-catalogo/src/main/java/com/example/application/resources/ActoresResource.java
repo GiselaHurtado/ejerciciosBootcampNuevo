@@ -5,6 +5,7 @@ package com.example.application.resources;
 import java.net.URI;
 import java.util.List;
 
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -31,8 +32,16 @@ import com.example.exceptions.NotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/actores/v1")
+@Tag(name = "actor-service", description = "Gestión de actores")
+
 public class ActoresResource {
 	private ActoresService srv;
 
@@ -40,11 +49,26 @@ public class ActoresResource {
 		super();
 		this.srv = srv;
 	}
-
-	@GetMapping
-	public Page<ActorDTO> getAll(Pageable pageable) {
-		return srv.getByProjection(pageable, ActorDTO.class);
+	
+	@GetMapping(params = { "page" })
+	@Operation(summary = " actores paginados")
+	public List<ActorDTO> getAll(@ParameterObject Pageable pageable) {
+		return srv.getByProjection(ActorDTO.class);
 	}
+	@GetMapping(path = "/{id}")
+	public ActorDTO getOne(@PathVariable int id) throws NotFoundException {
+		var item = srv.getOne(id);
+		if (item.isEmpty()) {
+			throw new NotFoundException("No se encontró el actor con id " + id);
+		}
+		return ActorDTO.from(item.get());
+	}
+ 
+//
+//	@GetMapping
+//	public Page<ActorDTO> getAll(Pageable pageable) {
+//		return srv.getByProjection(pageable, ActorDTO.class);
+//	}
 
 	//record Titulos(int id, String titulo){}
 	
