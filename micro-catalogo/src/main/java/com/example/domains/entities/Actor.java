@@ -9,9 +9,11 @@ import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -25,36 +27,37 @@ import com.example.domains.entities.models.ActorShort;
 
 @Entity
 @Table(name = "actor")
+@NamedQuery(name="Actor.findAll", query="SELECT a FROM Actor a")
 public class Actor implements Serializable, EntityBase<Actor> {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "actor_id")
+    @Column(name="actor_id", unique=true, nullable=false)
     private Integer actorId;
     
     
-
+    @Column(name = "first_name", nullable = false, length = 45)
     @NotBlank
     @Size(max = 45, min = 2)
-    @Column(name = "first_name", nullable = false, length = 45)
+    @Pattern(regexp = "^[A-Z]*$", message = "El nombre debe estar en mayúsculas")
     private String firstName;
 
+    @Column(name = "last_name", nullable = false, length = 45)
     @NotBlank
     @Size(max = 45, min = 2)
     @Pattern(regexp = "[A-Z]+", message = "debe estar en mayúsculas")
-    @Column(name = "last_name", nullable = false, length = 45)
     private String lastName;
 
-    @PastOrPresent
     @Column(name = "last_update", insertable = false, updatable = false, nullable = false)
+    @PastOrPresent
     private Timestamp lastUpdate;
 
-    @OneToMany(mappedBy = "actor")
-    private List<FilmActor> filmActors = new ArrayList<>();
+    @OneToMany(mappedBy="actor", fetch = FetchType.LAZY)
+	private List<FilmActor> filmActors;
 
-    public Actor() {
-    }
+	public Actor() {
+	}
 
     public Actor(Integer actorId) {
         this.actorId = actorId;
