@@ -40,18 +40,21 @@ public class Actor implements Serializable, EntityBase<Actor> {
     @Column(name = "first_name", nullable = false, length = 45)
     @NotBlank
     @Size(max = 45, min = 2)
-    @Pattern(regexp = "^[A-Z]*$", message = "El nombre debe estar en mayúsculas")
+    @Pattern(regexp = "^[A-Z]+( [A-Z]+)*$", message = "El nombre debe estar en mayúsculas y separado por espacios")
     private String firstName;
 
     @Column(name = "last_name", nullable = false, length = 45)
     @NotBlank
     @Size(max = 45, min = 2)
-    @Pattern(regexp = "[A-Z]+", message = "debe estar en mayúsculas")
+    @Pattern(regexp = "^[A-Z]+( [A-Z]+)*$", message = "El apellido debe estar en mayúsculas y separado por espacios")
     private String lastName;
 
     @Column(name = "last_update", insertable = false, updatable = false, nullable = false)
     @PastOrPresent
     private Timestamp lastUpdate;
+    
+    @Column(name = "retired", nullable = false)
+    private Boolean retired = false;
 
     @OneToMany(mappedBy="actor", fetch = FetchType.LAZY)
 	private List<FilmActor> filmActors;
@@ -65,8 +68,8 @@ public class Actor implements Serializable, EntityBase<Actor> {
 
     public Actor(Integer actorId, String firstName, String lastName) {
         this.actorId = actorId;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstName = firstName.trim().toUpperCase();
+        this.lastName = lastName.trim().toUpperCase();
     }
     
     
@@ -84,6 +87,15 @@ public class Actor implements Serializable, EntityBase<Actor> {
     }
 
     public void setFirstName(String firstName) {
+        
+        System.out.println("En Actor.setFirstName, valor recibido: '" + firstName + "'");
+        
+        
+        if(firstName != null) {
+            firstName = firstName.trim();
+        }
+        
+      
         this.firstName = firstName;
     }
 

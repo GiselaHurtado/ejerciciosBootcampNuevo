@@ -1,6 +1,7 @@
 package com.example.domains.contracts.services;
 
-import java.sql.Timestamp;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,5 +18,5 @@ import com.example.exceptions.NotFoundException;
 public interface ActoresService extends ProjectionDomainService<Actor, Integer> {
     void repartePremios();
 
-    List<Actor> novedades(Timestamp fecha);
+    List<Actor> novedades(Date fecha);
 }

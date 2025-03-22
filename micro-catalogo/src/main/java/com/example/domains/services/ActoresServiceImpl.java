@@ -1,6 +1,6 @@
 package com.example.domains.services;
 
-import java.sql.Timestamp;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -106,11 +106,17 @@ public class ActoresServiceImpl implements ActoresService {
 	}
 
 	@Override
-	public List<Actor> novedades(Timestamp fecha) {
+	public List<Actor> novedades(Date fecha) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+//	@Override
+//	public List<Actor> novedades(Date fecha) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
 //	@Override
 //	public List<Actor> novedades(Date fecha) {
 //		return dao.findByLastUpdateGreaterThanEqualOrderByLastUpdate(fecha);

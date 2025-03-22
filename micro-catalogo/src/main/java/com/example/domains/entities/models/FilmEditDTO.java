@@ -7,9 +7,14 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.example.domains.entities.Film;
-import com.example.domains.entities.Film.SpecialFeature;
+
 import com.example.domains.entities.Language;
 
+
+
+//import io.swagger.v3.oas.annotations.media.ArraySchema;s
+//import io.swagger.v3.oas.annotations.media.Schema;
+//import io.swagger.v3.oas.annotations.media.Schema.AccessMode;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -18,70 +23,84 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+//@Schema(name = "Pelicula (Editar)", description = "Version editable de las películas")
+@Data @AllArgsConstructor @NoArgsConstructor
 public class FilmEditDTO {
-    private int filmId;
-    private String description;
-    private Integer length;
+//	@Schema(description = "Identificador de la película", accessMode = AccessMode.READ_ONLY)
+	private int filmId;
+//	@Schema(description = "Una breve descripción o resumen de la trama de la película", minLength = 2)
+	private String description;
+//	@Schema(description = "La duración de la película, en minutos", minimum = "0", exclusiveMinimum = true)
+	private Integer length;
+//	@Schema(description = "La clasificación por edades asignada a la película", allowableValues = {"G", "PG", "PG-13", "R", "NC-17"})
+	@Pattern(regexp = "^(G|PG|PG-13|R|NC-17)$")
+	private String rating;
+//	@Schema(description = "El año en que se estrenó la película", minimum = "1901", maximum = "2155")
+	private Short releaseYear;
+//	@Schema(description = "La duración del período de alquiler, en días", minimum = "0", exclusiveMinimum = true)
+	@NotNull
+	private Byte rentalDuration;
+//	@Schema(description = "El coste de alquilar la película por el período establecido", minimum = "0", exclusiveMinimum = true)
+	@NotNull
+	private BigDecimal rentalRate;
+//	@Schema(description = "El importe cobrado al cliente si la película no se devuelve o se devuelve en un estado dañado", minimum = "0", exclusiveMinimum = true)
+	@NotNull
+	private BigDecimal replacementCost;
+//	@Schema(description = "El título de la película")
+	@NotBlank
+	@Size(min=2, max = 128)
+	private String title;
+//	@Schema(description = "El identificador del idioma de la película")
+	@NotNull
+	private Integer languageId;
+//	@Schema(description = "El identificador del idioma original de la película")
+	private Integer languageVOId;
+//	@Schema(description = "Contenido Adicional")
+	//private List<String> specialFeatures = new ArrayList<>();
+//	@Schema(description = "La lista de identificadores de actores que participan en la película")
+	private List<Integer> actors = new ArrayList<>();
+//	@Schema(description = "La lista de identificadores de categorías asignadas a la película")
+//	@ArraySchema(uniqueItems = true, minItems = 1, maxItems = 3)
+	private List<Integer> categories = new ArrayList<>();
 
-   
+ 	public static FilmEditDTO from(Film source) {
+		return new FilmEditDTO(
+				source.getFilmId(), 
+				source.getDescription(),
+				source.getLength(),
+				source.getRating() == null ? null : source.getRating().getValue(),
+				source.getReleaseYear(),
+				source.getRentalDuration(),
+				source.getRentalRate(),
+				source.getReplacementCost(),
+				source.getTitle(),
+				source.getLanguage() == null ? null : source.getLanguage().getLanguageId(),
+				source.getLanguageVO() == null ? null : source.getLanguageVO().getLanguageId(),
+				//source.getSpecialFeatures().stream().map(item -> item.getValue()).sorted().toList(),
+				source.getActors().stream().map(item -> item.getActorId())
+					.collect(Collectors.toList()),
+				source.getCategories().stream().map(item -> item.getCategoryId())
+					.collect(Collectors.toList())
+				);
+	}
+//	public static Film from(FilmEditDTO source) {
+//		Film rslt = new Film(
+//				source.getFilmId(), 
+//				source.getTitle(),
+//				source.getDescription(),
+//				source.getReleaseYear(),
+//				source.getLanguageId() == null ? null : new Language(source.getLanguageId()),
+//				source.getLanguageVOId() == null ? null : new Language(source.getLanguageVOId()),
+//				source.getRentalDuration(),
+//				source.getRentalRate(),
+//				source.getLength(),
+//				source.getReplacementCost(),
+//				source.getRating() == null ? null : Film.Rating.getEnum(source.getRating())
+//				);
+//		source.getActors().stream().forEach(item -> rslt.addActor(item));
+//		source.getCategories().stream().forEach(item -> rslt.addCategory(item));
+//		//source.getSpecialFeatures().stream().forEach(item -> rslt.addSpecialFeatures(SpecialFeature.getEnum(item)));
+//		return rslt;
+//	}
 
-    private Short releaseYear;
-
-    @NotNull
-    private Byte rentalDuration;
-
-    @NotNull
-    private BigDecimal rentalRate;
-
-    @NotNull
-    private BigDecimal replacementCost;
-
-    @NotBlank
-    @Size(min = 2, max = 128)
-    private String title;
-
-    @NotNull
-    private Integer languageId;
-
-    private Integer languageVOId;
-
-    private List<String> specialFeatures = new ArrayList<>();
-    private List<Integer> actors = new ArrayList<>();
-    private List<Integer> categories = new ArrayList<>();
-
-    public static FilmEditDTO from(Film source) {
-        return new FilmEditDTO(
-                source.getFilmId(),
-                source.getDescription(),
-                source.getLength(),
-                source.getReleaseYear(),
-                (byte) source.getRentalDuration(),
-                source.getRentalRate(),
-                source.getReplacementCost(),
-                source.getTitle(),
-                source.getLanguage() == null ? null : source.getLanguage().getLanguageId(),
-                source.getLanguageVO() == null ? null : source.getLanguageVO().getLanguageId(),
-                source.getSpecialFeatures() == null ? new ArrayList<>() :
-                        source.getSpecialFeatures().stream()
-                                .filter(Objects::nonNull)
-                                .map(SpecialFeature::getValue)
-                                .sorted()
-                                .collect(Collectors.toList()),
-                source.getActors() == null ? new ArrayList<>() :
-                        source.getActors().stream()
-                                .map(actor -> actor.getActorId())
-                                .collect(Collectors.toList()),
-                source.getCategories() == null ? new ArrayList<>() :
-                        source.getCategories().stream()
-                                .map(category -> category.getCategoryId())
-                                .collect(Collectors.toList())
-        );
-    }
-
-    	
-   
-   
-    }
+}

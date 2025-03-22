@@ -35,10 +35,11 @@ public class ActorDTO {
 				);
 	}
 	public static Actor from(ActorDTO source) {
+		System.out.println("Convirtiendo ActorDTO a Actor. Valor de firstName recibido: '" + source.getFirstName() + "'");
 		return new Actor(
-				source.getActorId(), 
-				source.getFirstName(), 
-				source.getLastName()
-				);
+				null, 
+		        source.getFirstName().trim(),
+		        source.getLastName().trim()
+		    );
 	}
 }

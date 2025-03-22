@@ -1,8 +1,13 @@
 package com.example.domains.entities;
 
+
+import com.example.domains.core.entities.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -13,11 +18,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.BeanUtils;
-
-import com.example.domains.core.entities.AbstractEntity;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -90,53 +90,65 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 		public static final String[] VALUES = { "G", "PG", "PG-13", "R", "NC-17" };
 	}
 	
-	public static enum SpecialFeature {
-	    Trailers("Trailers"),
-	    Commentaries("Commentaries"),
-	    DeletedScenes("Deleted Scenes"),
-	    BehindTheScenes("Behind the Scenes");
-
-	    String value;
-
-	    SpecialFeature(String value) {
-	        this.value = value;
-	    }
-
-		public String getValue() {
-			return value;
+//	public static enum SpecialFeature {
+//	    Trailers("Trailers"),
+//	    Commentaries("Commentaries"),
+//	    DeletedScenes("Deleted Scenes"),
+//	    BehindTheScenes("Behind the Scenes");
+//
+//	    String value;
+//
+////	    SpecialFeature(String value) {
+////	        this.value = value;
+////	    }
+//
+//		public String getValue() {
+//			return value;
+//		}
+//
+//	    public static SpecialFeature getEnum(String specialFeature) {
+//	        return Stream.of(SpecialFeature.values())
+//	                .filter(p -> p.getValue().equals(specialFeature))
+//	                .findFirst()
+//	                .orElseThrow(IllegalArgumentException::new);
+//	    }
+//	}
+	
+	@Converter
+	private static class RatingConverter implements AttributeConverter<Rating, String> {
+		@Override
+		public String convertToDatabaseColumn(Rating rating) {
+			return rating == null ? null : rating.getValue();
 		}
 
-	    public static SpecialFeature getEnum(String specialFeature) {
-	        return Stream.of(SpecialFeature.values())
-	                .filter(p -> p.getValue().equals(specialFeature))
-	                .findFirst()
-	                .orElseThrow(IllegalArgumentException::new);
-	    }
+		@Override
+		public Rating convertToEntityAttribute(String value) {
+			return value == null ? null : Rating.getEnum(value);
+		}
 	}
 	
-
-	@Converter
-	private static class SpecialFeatureConverter implements AttributeConverter<Set<SpecialFeature>, String> {
-	    @Override
-	    public String convertToDatabaseColumn(Set<SpecialFeature> attribute) {
-	        if (attribute == null || attribute.size() == 0) {
-	            return null;
-	        }
-	        return attribute.stream()
-	                .map(SpecialFeature::getValue)
-	                .collect(Collectors.joining(","));
-	    }
-
-	    @Override
-	    public Set<SpecialFeature> convertToEntityAttribute(String value) {
-	        if (value == null) {
-	            return EnumSet.noneOf(SpecialFeature.class);
-	        }
-	        return Arrays.stream(value.split(","))
-	                .map(SpecialFeature::getEnum)
-	                .collect(Collectors.toCollection(() -> EnumSet.noneOf(SpecialFeature.class)));
-	    }
-	}
+//	@Converter
+//	private static class SpecialFeatureConverter implements AttributeConverter<Set<SpecialFeature>, String> {
+//	    @Override
+//	    public String convertToDatabaseColumn(Set<SpecialFeature> attribute) {
+//	        if (attribute == null || attribute.size() == 0) {
+//	            return null;
+//	        }
+//	        return attribute.stream()
+//	                .map(SpecialFeature::getValue)
+//	                .collect(Collectors.joining(","));
+//	    }
+//
+//	    @Override
+//	    public Set<SpecialFeature> convertToEntityAttribute(String value) {
+//	        if (value == null) {
+//	            return EnumSet.noneOf(SpecialFeature.class);
+//	        }
+//	        return Arrays.stream(value.split(","))
+//	                .map(SpecialFeature::getEnum)
+//	                .collect(Collectors.toCollection(() -> EnumSet.noneOf(SpecialFeature.class)));
+//	    }
+//	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -147,12 +159,14 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 	private String description;
 
 	@Column(name = "last_update", insertable = false, updatable = false, nullable = false)
-	private Timestamp lastUpdate;
+	private Date lastUpdate;
 
 	@Positive
 	private Integer length;
 
-	
+	@Convert(converter = RatingConverter.class)
+	private Rating rating;
+
 	// @Temporal(TemporalType.DATE)
 	// @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy")
 	@Min(1901)
@@ -182,9 +196,9 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 	@Column(nullable = false, length = 128)
 	private String title;
 	
-	@Column(name = "special_features")
-	@Convert(converter = SpecialFeatureConverter.class)
-	private Set<SpecialFeature> specialFeatures = EnumSet.noneOf(SpecialFeature.class);
+//	@Column(name = "special_features")
+//	@Convert(converter = SpecialFeatureConverter.class)
+//	private Set<SpecialFeature> specialFeatures = EnumSet.noneOf(SpecialFeature.class);
 
 	// bi-directional many-to-one association to Language
 	@ManyToOne
@@ -244,7 +258,8 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 			@NotNull Language language, Language languageVO, @Positive byte rentalDuration,
 			@Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
 			@Positive Integer length,
-			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost) {
+			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost,
+			Rating rating) {
 		super();
 		this.filmId = filmId;
 		this.title = title;
@@ -256,8 +271,10 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 		this.rentalRate = rentalRate;
 		this.length = length;
 		this.replacementCost = replacementCost;
-	
+		this.rating = rating;
 	}
+
+
 
 	public int getFilmId() {
 		return this.filmId;
@@ -285,11 +302,11 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 		this.description = description;
 	}
 
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
@@ -301,6 +318,13 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 		this.length = length;
 	}
 
+	public Rating getRating() {
+		return this.rating;
+	}
+
+	public void setRating(Rating rating) {
+		this.rating = rating;
+	}
 
 	public Short getReleaseYear() {
 		return this.releaseYear;
@@ -431,19 +455,17 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 	}
 
 	// Special Features
-	
-	
-	public List<SpecialFeature> getSpecialFeatures() {
-		return specialFeatures.stream().toList();
-	}
-
-	public void addSpecialFeatures(SpecialFeature specialFeatures) {
-		this.specialFeatures.add(specialFeatures);
-	}
-
-	public void removeSpecialFeatures(SpecialFeature specialFeatures) {
-		this.specialFeatures.remove(specialFeatures);
-	}
+//	public List<SpecialFeature> getSpecialFeatures() {
+//		return specialFeatures.stream().toList();
+//	}
+//
+//	public void addSpecialFeatures(SpecialFeature specialFeatures) {
+//		this.specialFeatures.add(specialFeatures);
+//	}
+//
+//	public void removeSpecialFeatures(SpecialFeature specialFeatures) {
+//		this.specialFeatures.remove(specialFeatures);
+//	}
 
 	@Override
 	public int hashCode() {
@@ -464,7 +486,7 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 	public String toString() {
 		return "Film [filmId=" + filmId + ", title=" + title + ", rentalDuration=" + rentalDuration + ", rentalRate="
 				+ rentalRate + ", replacementCost=" + replacementCost + ", lastUpdate=" + lastUpdate + ", description="
-				+ description + ", length=" + length + ", releaseYear=" + releaseYear
+				+ description + ", length=" + length + ", rating=" + rating + ", releaseYear=" + releaseYear
 				+ ", language=" + language + ", languageVO=" + languageVO + "]";
 	}
 
@@ -479,8 +501,8 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 		target.rentalRate = rentalRate;
 		target.length = length;
 		target.replacementCost = replacementCost;
-		
-		target.specialFeatures = EnumSet.copyOf(specialFeatures);
+		target.rating = rating;
+		//target.specialFeatures = EnumSet.copyOf(specialFeatures);
 		// Borra los actores que sobran
 		target.getActors().stream().filter(item -> !getActors().contains(item))
 				.forEach(item -> target.removeActor(item));
@@ -508,4 +530,5 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 		filmActors.forEach(o -> o.prePersiste());
 		filmCategories.forEach(o -> o.prePersiste());
 	}
+
 }
