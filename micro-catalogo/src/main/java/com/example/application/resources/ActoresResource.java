@@ -102,7 +102,7 @@ public class ActoresResource {
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable int id) throws NotFoundException {
+	public void delete(@PathVariable int id) throws NotFoundException, InvalidDataException {
 		srv.deleteById(id);
 	}
 }

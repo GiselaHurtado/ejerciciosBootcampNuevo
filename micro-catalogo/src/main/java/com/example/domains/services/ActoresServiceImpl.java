@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -95,9 +96,15 @@ public class ActoresServiceImpl implements ActoresService {
 
 	@Override
 	@EmitEntityDeleted(entityName = "Actore")
-	public void deleteById(Integer id) {
-		dao.deleteById(id);
+	public void deleteById(Integer id) throws NotFoundException, InvalidDataException {
+	    try {
+	        dao.deleteById(id);
+	    } catch (DataIntegrityViolationException e) {
+	        
+	        throw new InvalidDataException("No se puede eliminar el actor porque tiene relaciones asociadas", e);
+	    }
 	}
+
 
 	@Override
 	public void repartePremios() {
