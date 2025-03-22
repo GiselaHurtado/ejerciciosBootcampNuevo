@@ -154,6 +154,8 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "film_id", unique = true, nullable = false)
 	private int filmId;
+	
+
 
 	@Lob
 	private String description;
@@ -254,8 +256,12 @@ public class Film extends AbstractEntity<Film> implements Serializable {
 		this.replacementCost = replacementCost;
 	}
 
-	public Film(int filmId, @NotBlank @Size(max = 128) String title, String description, @Min(1895) Short releaseYear,
-			@NotNull Language language, Language languageVO, @Positive byte rentalDuration,
+	public Film(int filmId,
+			@NotBlank @Size(min=2,max = 128) String title, 
+			String description, 
+			@Min(1895) Short releaseYear,
+			@NotNull Language language, 
+			Language languageVO, @Positive byte rentalDuration,
 			@Positive @DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 2, fraction = 2) BigDecimal rentalRate,
 			@Positive Integer length,
 			@DecimalMin(value = "0.0", inclusive = false) @Digits(integer = 3, fraction = 2) BigDecimal replacementCost,

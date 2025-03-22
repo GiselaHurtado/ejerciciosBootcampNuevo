@@ -37,6 +37,10 @@ public class Language implements Serializable {
 
 	public Language() {
 	}
+	
+	public Language(Integer languageId) {
+        this.languageId = languageId;
+    }
 
 	public int getLanguageId() {
 		return this.languageId;

@@ -142,7 +142,7 @@ class ActoresServiceImplTest {
     }
     
     @Test
-    void testDeleteById() throws NotFoundException {
+    void testDeleteById() throws NotFoundException, InvalidDataException {
         when(dao.existsById(1)).thenReturn(true);
         doNothing().when(dao).deleteById(1);
         

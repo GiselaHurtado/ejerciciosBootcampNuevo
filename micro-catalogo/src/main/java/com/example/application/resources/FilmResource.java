@@ -41,6 +41,7 @@ import com.example.domains.entities.models.FilmDetailsDTO;
 import com.example.domains.entities.models.FilmEditDTO;
 import com.example.domains.entities.models.FilmShortDTO;
 import com.example.exceptions.BadRequestException;
+import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
 import io.swagger.v3.oas.annotations.Hidden;
@@ -237,62 +238,44 @@ public class FilmResource {
 				Map.of("key", "NC-17", "value", "Prohibido para audiencia de 17 años y menos"));
 	}
 
-//	@Operation(summary = "Añadir una nueva pelicula")
-//	@ApiResponse(responseCode = "201", description = "Pelicula añadida")
-//	@ApiResponse(responseCode = "404", description = "Pelicula no encontrada")
-//	@PostMapping
-//	@ResponseStatus(code = HttpStatus.CREATED)
-//	@Transactional
-//	public ResponseEntity<Object> add(@RequestBody() FilmEditDTO item) throws Exception {
-//		Film newItem = srv.add(FilmEditDTO.from(item));
-//		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-//				.buildAndExpand(newItem.getFilmId()).toUri();
-//		return ResponseEntity.created(location).build();
-//	}
+	@Operation(summary = "Añadir una nueva pelicula")
+	@ApiResponse(responseCode = "201", description = "Pelicula añadida")
+	@ApiResponse(responseCode = "404", description = "Pelicula no encontrada")
+	@PostMapping
+	@ResponseStatus(code = HttpStatus.CREATED)
+	@Transactional
+	public ResponseEntity<Object> add(@RequestBody() FilmEditDTO item) throws Exception {
+		Film newItem = srv.add(FilmEditDTO.toFilm(item));
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(newItem.getFilmId()).toUri();
+		return ResponseEntity.created(location).build();
+	}
 
-//	@Operation(summary = "Modificar una pelicula existente", description = "Los identificadores deben coincidir")
-//	@ApiResponse(responseCode = "200", description = "Pelicula encontrada")
-//	@ApiResponse(responseCode = "404", description = "Pelicula no encontrada")
-////	@Transactional
-//	@PutMapping(path = "/{id}")
-//	public FilmEditDTO modify(
-//			@Parameter(description = "Identificador de la pelicula", required = true) @PathVariable int id,
-//			@Valid @RequestBody Film item) throws Exception {
-//		if (item.getFilmId() != id)
-//			throw new BadRequestException("No coinciden los identificadores");
-//		return FilmEditDTO.from(srv.modify(FilmEditDTO.from(item)));
-//	}
-//
-//	@Operation(summary = "Borrar una pelicula existente")
-//	@ApiResponse(responseCode = "204", description = "Pelicula borrada")
-//	@ApiResponse(responseCode = "404", description = "Pelicula no encontrada")
-//	@DeleteMapping(path = "/{id}")
-//	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-//	public void delete(@Parameter(description = "Identificador de la pelicula", required = true) @PathVariable int id)
-//			throws Exception {
-//		srv.deleteById(id);
-//	}
+	@Operation(summary = "Modificar una pelicula existente", description = "Los identificadores deben coincidir")
+	@ApiResponse(responseCode = "200", description = "Pelicula encontrada")
+	@ApiResponse(responseCode = "404", description = "Pelicula no encontrada")
+	@Transactional
+	@PutMapping(path = "/{id}")
+	public FilmEditDTO modify(
+	        @PathVariable int id,
+	        @Valid @RequestBody FilmEditDTO dto) throws NotFoundException, InvalidDataException, BadRequestException {
+	    if (dto.getFilmId() != id) {
+	        throw new BadRequestException("No coinciden los identificadores");
+	    }
+	    Film filmToUpdate = FilmEditDTO.toFilm(dto);
+	    Film updatedFilm = srv.modify(filmToUpdate);
+	    return FilmEditDTO.from(updatedFilm);
+	}
+	
+	@Operation(summary = "Borrar una pelicula existente")
+	@ApiResponse(responseCode = "204", description = "Pelicula borrada")
+	@ApiResponse(responseCode = "404", description = "Pelicula no encontrada")
+	@DeleteMapping(path = "/{id}")
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void delete(@Parameter(description = "Identificador de la pelicula", required = true) @PathVariable int id)
+			throws Exception {
+		srv.deleteById(id);
+	}
 
-//	@Autowired
-//	MeGustaProxy proxy;
-//
-////	@Operation(summary = "Enviar un me gusta")
-////	@ApiResponse(responseCode = "200", description = "Like enviado")
-////	@PostMapping(path = "{id}/like")
-////	public String like(@Parameter(description = "Identificador de la pelicula", required = true) @PathVariable int id)
-////			throws Exception {
-////		return proxy.sendLike(id);
-////	}
-//
-////	@PreAuthorize("hasRole('ADMINISTRADORES')")
-//	@Operation(summary = "Enviar un me gusta")
-//	@ApiResponse(responseCode = "200", description = "Like enviado")
-//	@SecurityRequirement(name = "bearerAuth")
-//	@PostMapping(path = "{id}/like")
-//	public String like(@Parameter(description = "Identificador de la pelicula", required = true) @PathVariable int id,
-//			@Parameter(hidden = true) @RequestHeader(required = false) String authorization) throws Exception {
-//		if (authorization == null)
-//			return proxy.sendLike(id);
-//		return proxy.sendLike(id, authorization);
-//	}
+	
 }
