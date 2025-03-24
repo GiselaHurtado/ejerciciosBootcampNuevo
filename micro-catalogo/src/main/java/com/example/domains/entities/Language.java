@@ -3,6 +3,7 @@ package com.example.domains.entities;
 import java.io.Serializable;
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 
@@ -22,7 +23,7 @@ public class Language implements Serializable {
 	private int languageId;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
-	private Timestamp lastUpdate;
+	private Date lastUpdate;
 
 	@Column(nullable=false, length=20)
 	private String name;
@@ -50,11 +51,11 @@ public class Language implements Serializable {
 		this.languageId = languageId;
 	}
 
-	public Timestamp getLastUpdate() {
+	public Date getLastUpdate() {
 		return this.lastUpdate;
 	}
 
-	public void setLastUpdate(Timestamp lastUpdate) {
+	public void setLastUpdate(Date lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
 
