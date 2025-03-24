@@ -1,8 +1,9 @@
 package com.example.domains.entities;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.ArrayList;
+
+
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -51,7 +52,7 @@ public class Actor implements Serializable, EntityBase<Actor> {
 
     @Column(name = "last_update", insertable = false, updatable = false, nullable = false)
     @PastOrPresent
-    private Timestamp lastUpdate;
+    private Date lastUpdate;
     
     @Column(name = "retired", nullable = false)
     private Boolean retired = false;
@@ -107,11 +108,11 @@ public class Actor implements Serializable, EntityBase<Actor> {
         this.lastName = lastName;
     }
 
-    public Timestamp getLastUpdate() {
+    public Date getLastUpdate() {
         return this.lastUpdate;
     }
 
-    public void setLastUpdate(Timestamp lastUpdate) {
+    public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
 
