@@ -52,27 +52,30 @@
 			</plugin>
 			<!-- tag::wsdl[] -->
 			<plugin>
-				<groupId>com.sun.xml.ws</groupId>
-				<artifactId>jaxws-maven-plugin</artifactId>
-				<version>3.0.0</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>wsimport</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<packageName>com.example.consumingwebservice.wsdl</packageName>
-					<wsdlUrls>
-						<wsdlUrl>http://localhost:8080/ws/countries.wsdl</wsdlUrl>
-					</wsdlUrls>
-					<sourceDestDir>${sourcesDir}</sourceDestDir>
-					<destDir>${classesDir}</destDir>
-					<extension>true</extension>
-				</configuration>
-			</plugin>
-			<!-- end::wsdl[] -->
+  <groupId>com.sun.xml.ws</groupId>
+  <artifactId>jaxws-maven-plugin</artifactId>
+  <version>3.0.0</version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>wsimport</goal>
+      </goals>
+    </execution>
+  </executions>
+  <configuration>
+    <wsdlUrls>
+      <wsdlUrl>http://localhost:8080/ws/countries.wsdl</wsdlUrl>
+    </wsdlUrls>
+    <packageName>com.example.consumingwebservice.wsdl</packageName>
+    <sourceDestDir>${project.build.directory}/generated-sources/wsimport</sourceDestDir>
+    <destDir>${project.build.directory}/classes</destDir>
+    <extension>true</extension>
+    <xnocompile>true</xnocompile>
+    <encoding>UTF-8</encoding>
+    <keep>true</keep>
+  </configuration>
+</plugin>
+<!-- end::wsdl[] -->
 		</plugins>
 	</build>
 

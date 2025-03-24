@@ -14,16 +14,16 @@ public class ConsumingWebServiceApplication {
     SpringApplication.run(ConsumingWebServiceApplication.class, args);
   }
 
-  @Bean
-  CommandLineRunner lookup(CountryClient countryClient) {
-    return args -> {
-      String country = "Spain";
-      if (args.length > 0) {
-        country = args[0];
-      }
-
-      GetCountryResponse response = countryClient.getCountry(country);
-      System.out.println("Currency of " + country + ": " + response.getCountry().getCurrency());
-    };
-  }
+//  @Bean
+//  CommandLineRunner lookup(CountryClient countryClient) {
+//    return args -> {
+//      String country = "Spain";
+//      if (args.length > 0) {
+//        country = args[0];
+//      }
+//
+//      GetCountryResponse response = countryClient.getCountry(country);
+//      System.out.println("Currency of " + country + ": " + response.getCountry().getCurrency());
+//    };
+//  }
 }
