@@ -32,7 +32,7 @@ import jakarta.transaction.Transactional;
                 license = @License(name = "Apache 2.0", url = "https://www.apache.org/licenses/LICENSE-2.0.html"),
                 contact = @Contact(name = "Gi", url = "", email = "")
         ),
-        externalDocs = @ExternalDocumentation(description = "Documentación del proyecto", url = "https://github.com/jmagit/BOOT20250305/tree/main/catalogo")
+        externalDocs = @ExternalDocumentation(description = "Documentación del proyecto", url = "")
 )
 
 
