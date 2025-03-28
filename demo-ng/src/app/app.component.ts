@@ -1,14 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-@NgModule({
-  declarations : [],
-  exports : [],
-  imports: [
-    CommonModule
-  ],
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
 })
-export class ConfigModule {
-  
+export class AppComponent {
+  title: string = 'world';
 }
