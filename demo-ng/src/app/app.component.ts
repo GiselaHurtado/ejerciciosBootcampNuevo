@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, NgModule } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-@Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+@NgModule({
+  declarations : [],
+  exports : [],
+  imports: [
+    CommonModule
+  ],
 })
-export class AppComponent {
-  title = 'Miku Ian';
+export class ConfigModule {
+  
 }
