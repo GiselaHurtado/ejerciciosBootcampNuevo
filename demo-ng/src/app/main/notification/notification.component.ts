@@ -19,12 +19,12 @@ export class NotificationComponent {
   }
 
  
-  trackById(index: number, item: any): number {
-    return item.Id;
-  }
+  // trackById(index: number, item: any): number {
+  //   return item.Id;
+  // }
 
   
-  getIndex(item: any): number {
-    return this.vm.Listado.indexOf(item);
-  }
+  // getIndex(item: any): number {
+  //   return this.vm.Listado.indexOf(item);
+  // }
 }

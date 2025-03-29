@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LoggerService } from 'src/lib/my-core/services';
-import { CommonModule } from '@angular/common';
-
-import { NotificationModalComponent } from '.\src\app\main\notification-modal\notification-modal.component.ts';
-import { DemosComponent } from './demos/demos.component';
+import { LoggerService } from 'src/lib/my-core/services/logger.service';
+import { DemosComponent } from 'src/app/demos/demos.component';
+import { NotificationComponent } from './main/notification/notification.component';
+import { NotificationModalComponent } from './main/notification-modal/notification-modal.component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, NotificationModalComponent, DemosComponent],
+  imports: [RouterOutlet, DemosComponent, NotificationModalComponent, NotificationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

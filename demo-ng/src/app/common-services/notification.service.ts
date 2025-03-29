@@ -57,6 +57,8 @@ export class NotificationService implements OnDestroy {
     }
   }
 
+  
+
   public remove(index: number): void {
     if (index < 0 || index >= this.listado.length) {
       this.out.error('Index out of range.');

@@ -1,7 +1,79 @@
-<p>
-    <input type="button" value="Error" (click)="vm.add('Esto es una notificación de error')">
+
+  <div class="demos-buttons">
+
+    <div class="error-btn">
+     <input type="button" value="Error" (click)="vm.add('Esto es una notificación de error')">
+    </div>
+    
+    <div class="warn-btn">
     <input type="button" value="Warn" (click)="vm.add('Esta notificación es un aviso', vm.NotificationType.warn)">
+      </div>
+
+
+      <div class="info-btn">
     <input type="button" value="Info" (click)="vm.add('Solo una notificación informativa', vm.NotificationType.info)">
+    </div>
+    
+    <div class="log-btn">
     <input type="button" value="Log" (click)="vm.add('Para trazar con notificaciones', vm.NotificationType.log)">
-  </p>
+  </div>
+
+</div>
+  <style>
+    
+    
+  .demos-buttons {
+    display: flex;
   
+    gap: 1rem;
+    margin-top: 350px;
+    margin-left: 0px;
+    width: 100%;
+    
+    letter-spacing: 10px;
+  }
+
+  .error-btn input {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  
+  .warn-btn input {
+    background-color: #ffc107; 
+    color: #212529;            
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+ 
+  .info-btn input {
+    background-color: #0d6efd ; 
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+
+  .log-btn input {
+    background-color: #198754; 
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+
+  .demos-buttons input:hover {
+    opacity: 0.8;
+  }
+ </style>
