@@ -25,7 +25,7 @@ class Persona {
     public cumpleAños(): void { if(!this.esMayorDeEdad()) this.edad++ }
 }
 
-let o = new Persona(1,'Pepito','Grillo',99);
+let o = new Persona(1,'Iann','Miku',99);
 let nom = o?.Nombre?.toUpperCase()
 
 enum Direction { Up = 1, Down, Left, Right, }
