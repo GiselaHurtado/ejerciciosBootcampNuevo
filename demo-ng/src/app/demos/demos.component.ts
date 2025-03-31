@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, signal, computed } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Unsubscribable } from 'rxjs';
 import { NotificationService, NotificationType } from '../common-services/notification.service';
 
 @Component({
@@ -25,11 +25,6 @@ export class DemosComponent implements OnInit, OnDestroy {
   public readonly estetica = signal({ importante:true, urgente: true, error: false })	
 
 
-
-
-
-
-
   constructor(public vm: NotificationService) { }
 
   public get Fecha(): string { return this.fecha.toISOString(); }
@@ -38,7 +33,33 @@ export class DemosComponent implements OnInit, OnDestroy {
      }
 
 
+saluda(){
+  this.resultado.set(`Hola ${this.nombre()}`)
+  
+}
+despide(){
+  this.resultado.set(`Adios ${this.nombre()}`)
+ 
+}
+di(algo: string){ 
+  this.resultado.set(`Dice ${algo}`)
+ 
+}
+cambia(){
+  this.visible.update(valor => !valor)
+  this.estetica.update(valor => ({...valor, error: !valor.error})) //desestructing
+}
+
+add(provincia: string) {
+  const id = this.listado()[this.listado().length - 1].id + 1;
+  this.listado.update(valor => [...valor, { id, nombre: provincia }])
+  this.idProvincia.set(id);
+}
+
+
+
   private suscriptor: Subscription | undefined;
+ // private suscriptor?: Unsubscribable;
 
   
 
