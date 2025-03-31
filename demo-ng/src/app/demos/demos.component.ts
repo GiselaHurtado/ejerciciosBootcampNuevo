@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal, computed } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NotificationService, NotificationType } from '../common-services/notification.service';
 
@@ -18,6 +18,12 @@ export class DemosComponent implements OnInit, OnDestroy {
     
   ])
   public readonly idProvincia = signal<number>(2)
+
+  public resultado = signal<string>('')
+  public visible = signal<boolean>(true)
+  public invisible = computed<boolean>(() => this.visible())
+
+
 
 
 
