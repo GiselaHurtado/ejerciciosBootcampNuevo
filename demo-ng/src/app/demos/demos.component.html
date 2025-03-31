@@ -9,6 +9,7 @@
     <input type="text" [(ngModel)] = "nombre" placeholder="Escribe tu nombre" />    <div class="error-btn">
       <input type="button" value = "saludar" (click)="saluda()"/>
       <input type="button" value = "despide" (click)="despide()"/>
+      <input type="button" value="cambia" (click)="cambia()" />
       <input type="button" value="Error" (click)="vm.add('Esto es una notificación de error')">
     </div>
     
@@ -46,7 +47,7 @@
 @if(visible()) {
   <p>ahora existo con flujo</p>
 }
-<p [ngClass]="estetica">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+<p [ngClass]="estetica()">Lorem ipsum dolor sit amet consectetur adipisicing elit.
   Pariatur eius autem impedit maiores cupiditate accusamus officia laudantium quod suscipit
   rerum perferendis nam possimus odio praesentium animi culpa, libero voluptatibus voluptatem.
 </p>

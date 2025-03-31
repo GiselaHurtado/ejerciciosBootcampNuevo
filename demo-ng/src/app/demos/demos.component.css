@@ -1,0 +1,12 @@
+.importante {
+  color: purple;
+  font-size: 40px;
+}
+.urgente{
+    color: orange;
+    font-size: 40px;    
+}
+.semivisible{
+    color: blue;
+    font-size: 40px;    
+}
