@@ -8,9 +8,19 @@ import { NotificationService, NotificationType } from '../common-services/notifi
 })
 export class DemosComponent implements OnInit, OnDestroy {
 
-  private suscriptor: Subscription | undefined;
+  private fecha = new Date('2025-03-31');
 
   constructor(public vm: NotificationService) { }
+
+  public get Fecha(): string { return this.fecha.toISOString(); }
+  public set Fecha(value: string) {
+     this.fecha = new Date(value);
+     }
+
+
+  private suscriptor: Subscription | undefined;
+
+  
 
   ngOnInit(): void {
    
