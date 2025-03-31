@@ -22,6 +22,9 @@ export class DemosComponent implements OnInit, OnDestroy {
   public resultado = signal<string>('')
   public visible = signal<boolean>(true)
   public invisible = computed<boolean>(() => this.visible())
+  public readonly estetica = signal({ importante:true, urgente: true, error: false })	
+
+
 
 
 
