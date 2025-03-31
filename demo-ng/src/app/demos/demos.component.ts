@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { NotificationService, NotificationType } from '../common-services/notification.service';
 
@@ -7,8 +7,19 @@ import { NotificationService, NotificationType } from '../common-services/notifi
   templateUrl: './demos.component.html'
 })
 export class DemosComponent implements OnInit, OnDestroy {
-
   private fecha = new Date('2025-03-31');
+  public readonly nombre = signal<string>('mundo')
+  public readonly fontSize = signal<number>(22)
+  public readonly listado = signal([
+    { id: 1, nombre: 'Juan' },
+    { id: 2, nombre: 'OVIEDO' },
+    { id: 3, nombre: 'barcelona' },
+    { id: 3, nombre: 'Ciudad Real' },
+    
+  ])
+  public readonly idProvincia = signal<number>(2)
+
+
 
   constructor(public vm: NotificationService) { }
 
