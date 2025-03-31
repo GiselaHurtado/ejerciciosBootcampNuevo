@@ -1,82 +1,8 @@
-<main class="main">
-  <div class="content">
-    <div class="centered-content">
-      
-      <h1> {{ title }}</h1>
-      <p>Congratulations! Have Fun🎉</p>
-    </div>
- 
-    <div>
 
-      
-   
+<app-notification />
+<main class="container-fluid">
+  <app-demos />
+</main>
+
 <router-outlet />
 
-<app-notification-modal></app-notification-modal>
-
-<app-demos></app-demos>
-
-<router-outlet></router-outlet>
-
-</div>
-  
-  
-
-
-
-<style>
-  
-      
-      h1 {
-        font-size: 3.125rem;
-        color: var(--gray-900);
-        font-weight: 500;
-        line-height: 100%;
-        letter-spacing: -0.125rem;
-        margin: 0;
-        font-family: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-        "Segoe UI Symbol";
-      }
-
-
-
-
-  main {
-    
-    margin-top: 50px;
-    padding: 20px;        
-  text-align: center;  
- 
-  }
-  
-  
-  .content {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    max-width: 900px;
-    height: 100%;
-    margin-bottom: 3rem;
-    letter-spacing: 10px;
-   background-color: #f9f9f9;
-
-    
-  }
-  
-  .content h1 {
-    margin-top: 2rem;
-   
-  }
-  
-
-  
-  @media screen and (max-width: 650px) {
-    .content {
-      flex-direction: column;
-      width: max-content;
-    }
-    
-
-  }
-  </style>
