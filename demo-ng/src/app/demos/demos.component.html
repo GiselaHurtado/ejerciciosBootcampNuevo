@@ -1,4 +1,4 @@
-<h1>Hola {{nombre()}}</h1>
+<h1>Hola {{nombre() | uppercase}}</h1>
 
 <p>{{resultado()}}</p>
 <p>Fecha: {{Fecha}}</p>
@@ -74,7 +74,7 @@
   <input type="button" value="Añadir" (click)="add(txtProvincia.value)" />
 </p>
 
-
+<p>{{listado() | json}}></p>
   <style>
     
     
