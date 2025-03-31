@@ -15,12 +15,12 @@ import { NotificationModalComponent } from './main/notification-modal/notificati
 export class AppComponent {
   title: string = 'Sistema de Notificaciones';
 
-  constructor(out: LoggerService) {
-    out.error('Es es un Error ');
-    out.warn('Es es un warn');
-    out.info('Es es un info');
-    out.log('Es es un log');
-  }
+  // constructor(out: LoggerService) {
+  //   out.error('Es es un Error ');
+  //   out.warn('Es es un warn');
+  //   out.info('Es es un info');
+  //   out.log('Es es un log');
+  // }
 
  
 }

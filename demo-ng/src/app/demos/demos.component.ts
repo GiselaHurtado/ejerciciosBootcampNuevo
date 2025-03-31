@@ -20,6 +20,7 @@ export class DemosComponent implements OnInit, OnDestroy {
       
       this.vm.remove(this.vm.Listado.length - 1);
     });
+    complete: () => this.suscriptor?.unsubscribe();
   }
 
   ngOnDestroy(): void {
