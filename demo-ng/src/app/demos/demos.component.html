@@ -1,12 +1,15 @@
 <h1>Hola {{nombre()}}</h1>
 
-
+<p>{{resultado()}}</p>
+<p>Fecha: {{Fecha}}</p>
+<p>Calcula: 2 + 2 = {{2 + 2}}</p>
 
 
   <div class="demos-buttons">
-
-    <div class="error-btn">
-     <input type="button" value="Error" (click)="vm.add('Esto es una notificación de error')">
+    <input type="text" [(ngModel)] = "nombre" placeholder="Escribe tu nombre" />    <div class="error-btn">
+      <input type="button" value = "saludar" (click)="saluda()"/>
+      <input type="button" value = "despide" (click)="despide()"/>
+      <input type="button" value="Error" (click)="vm.add('Esto es una notificación de error')">
     </div>
     
     <div class="warn-btn">
@@ -23,23 +26,28 @@
   </div>
 
 </div>
+<p>[hidden]="<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
 
-<p>{{resultado()}}</p>
+<p [hidden]="!visible()">AHORA ME VES</p>
+<p [hidden]="invisible()">AHORA ME VES</p>
+<p *ngIF="visible()">ahora existo con directiva</p>
+@if(visible()){
+  <p>ahora existo con flujo</p>
+  
+}
+
+<p [class.semivisible]="invisible()">ahora me ves bien</p>
 <p>Fecha: {{Fecha}}</p>
-<p>Calcula:2 + 2 = {{2 + 2}}</p>
-
-
-
-
-
-
-
-
-
-  =
-
-
-
 
   <style>
     

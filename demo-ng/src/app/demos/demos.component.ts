@@ -1,9 +1,12 @@
 import { Component, OnInit, OnDestroy, signal, computed } from '@angular/core';
 import { Subscription, Unsubscribable } from 'rxjs';
 import { NotificationService, NotificationType } from '../common-services/notification.service';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-demos',
+  imports: [FormsModule, CommonModule],
   templateUrl: './demos.component.html'
 })
 export class DemosComponent implements OnInit, OnDestroy {
