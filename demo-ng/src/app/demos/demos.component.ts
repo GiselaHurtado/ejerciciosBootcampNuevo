@@ -56,6 +56,8 @@ add(provincia: string) {
   this.idProvincia.set(id);
 }
 
+calcula(a: number, b: number ) { return a + b; }
+
 
 
   private suscriptor: Subscription | undefined;
