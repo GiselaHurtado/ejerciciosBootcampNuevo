@@ -1,12 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CapitalizePipe, ElipsisPipe, LoggerService, SizerComponent } from '@my/core';
 import { Unsubscribable } from 'rxjs';
+import { CardComponent, FormButtonsComponent } from '../../common-components';
 import { NotificationService, NotificationType } from 'src/app/common-services';
+import GraficoSvgComponent from '../grafico-svg/grafico-svg.component';
 
 @Component({
   selector: 'app-demos',
-  imports: [FormsModule, CommonModule, ],
+  imports: [FormsModule, CommonModule, ElipsisPipe, CapitalizePipe, SizerComponent, FormButtonsComponent, CardComponent, GraficoSvgComponent, ],
   templateUrl: './demos.component.html',
   styleUrl: './demos.component.css'
 })
@@ -27,7 +30,7 @@ export class DemosComponent {
   public readonly invisible = computed<boolean>(() => !this.visible())
   public readonly estetica = signal({ importante: true, urgente: true, error: false })
 
-  constructor(public vm: NotificationService) { }
+  constructor(public vm: NotificationService, out: LoggerService) { }
 
   public get Fecha(): string { return this.fecha.toISOString(); }
   public set Fecha(value: string) {

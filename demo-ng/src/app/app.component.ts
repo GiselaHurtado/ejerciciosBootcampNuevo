@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoggerService } from 'src/lib/my-core/services/logger.service';
-import { DemosComponent } from 'src/app/demos/demos.component';
+import { DemosComponent } from 'src/app/ejemplos/demos/demos.component';
 import { NotificationComponent } from './main/notification/notification.component';
 import { NotificationModalComponent } from './main/notification-modal/notification-modal.component';
 
