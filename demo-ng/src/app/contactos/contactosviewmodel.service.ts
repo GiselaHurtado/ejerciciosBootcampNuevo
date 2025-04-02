@@ -5,5 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class ServiciosService {
 
+  
+
   constructor() { }
 }
+
+export type ModoCRUD = 'list' | 'add' | 'edit' | 'view' | 'delete';
