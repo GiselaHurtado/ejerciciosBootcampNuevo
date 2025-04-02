@@ -1,6 +1,6 @@
 import { Routes, UrlSegment } from '@angular/router';
 import { HomeComponent, PageNotFoundComponent } from './main';
-import { DemosComponent } from '../app/ejemplos/demos/demos.component';
+import { DemosComponent } from './ejemplos/demos/demos.component';
 import { FormulariosComponent } from './ejemplos/formularios/formularios.component';
 import { LoginFormComponent, RegisterUserComponent } from './security';
 

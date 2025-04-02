@@ -1,8 +1,7 @@
-import { ɵXSS_SECURITY_URL } from "@angular/core";
-
 export const environment = {
     production: false,
-    ERROR_LEVEL: 1,
-    apiUrl: 'http://localhost:8010/',
+    ERROR_LEVEL: 99,
+    apiUrl: 'http://localhost:4321/api/',
     securityApiURL: 'http://localhost:8091/',
-};
+  
+  };
