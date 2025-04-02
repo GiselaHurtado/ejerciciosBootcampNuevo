@@ -10,8 +10,7 @@ export enum NotificationType {
 }
 
 export class Notification {
-  constructor(private id: number, private message: string,
-    private type: NotificationType) { }
+  constructor(private id: number, private message: string, private type: NotificationType) { }
   public get Id() { return this.id; }
   public get Message() { return this.message; }
   public get Type() { return this.type; }
@@ -20,7 +19,7 @@ export class Notification {
 @Injectable({
   providedIn: 'root'
 })
-export class NotificationService implements OnDestroy  {
+export class NotificationService implements OnDestroy {
   public readonly NotificationType = NotificationType;
   private listado: Notification[] = [];
   private notificacion$ = new Subject<Notification>();
@@ -36,12 +35,13 @@ export class NotificationService implements OnDestroy  {
       this.out.error('Falta el mensaje de notificación.');
       return;
     }
-    const id = this.HayNotificaciones ?
-      (this.listado[this.listado.length - 1].Id + 1) : 1;
+    const id = this.HayNotificaciones
+      ? (this.listado[this.listado.length - 1].Id + 1)
+      : 1;
     const n = new Notification(id, msg, type);
     this.listado.push(n);
     this.notificacion$.next(n);
-    // Redundancia: Los errores también se muestran en consola
+    // Los errores también se muestran en consola
     if (type === NotificationType.error) {
       this.out.error(`NOTIFICATION: ${msg}`);
     }
@@ -54,11 +54,24 @@ export class NotificationService implements OnDestroy  {
     this.listado.splice(index, 1);
   }
   public clear() {
-    if (this.HayNotificaciones)
+    if (this.HayNotificaciones) {
       this.listado.splice(0);
+    }
   }
 
   ngOnDestroy(): void {
-    this.notificacion$.complete()
+    this.notificacion$.complete();
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class NavigationService {
+  constructor() {}
+
+  back() {
+    // Implementación básica de navegación hacia atrás.
+    window.history.back();
   }
 }

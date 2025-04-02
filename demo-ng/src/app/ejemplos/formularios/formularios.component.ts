@@ -43,7 +43,7 @@ export class PersonasDaoService extends RESTDAOService<any, number> {
 }
 @Component({
   selector: 'app-formularios',
-  imports: [FormsModule, ErrorMessagePipe, JsonPipe, FormButtonsComponent],
+  imports: [FormsModule, ErrorMessagePipe, JsonPipe],
   templateUrl: './formularios.component.html',
   styleUrl: './formularios.component.css'
 })

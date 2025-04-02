@@ -1,6 +1,6 @@
 import { Routes, UrlSegment } from '@angular/router';
 import { HomeComponent, PageNotFoundComponent } from './main';
-import { DemosComponent } from './ejemplos/demos/demos.component';
+import { DemosComponent } from '../app/ejemplos/demos/demos.component';
 import { FormulariosComponent } from './ejemplos/formularios/formularios.component';
 import { LoginFormComponent, RegisterUserComponent } from './security';
 
@@ -26,6 +26,10 @@ export const routes: Routes = [
     {path: ':id', component: FormulariosComponent},
     {path: ':id/:kk', component: FormulariosComponent},
   ]},
+  {
+    path: 'contactos', loadChildren: () => import('./contactos/modulo.module').then(mod => mod.ContactosModule), title: 'contactos',
+    
+  },
   { path: 'login', component: LoginFormComponent },
   { path: 'registro', component: RegisterUserComponent },
   {matcher: graficoFiles, loadComponent: () => import('./ejemplos/grafico-svg/grafico-svg.component') },
