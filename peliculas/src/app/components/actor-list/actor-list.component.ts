@@ -97,7 +97,7 @@ import { Actor } from '../../models/actor.model';
 })
 export class ActorListComponent implements OnInit {
   page!: Page<Actor>;
-  pageSize = 20;
+  pageSize = 3000;
   searchId: number | null = null;
   busqueda = false; // Flag para saber si estamos en modo búsqueda
   actorBuscado: Actor | null = null;
