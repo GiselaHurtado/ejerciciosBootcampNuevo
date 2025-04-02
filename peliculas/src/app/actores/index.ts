@@ -1,2 +1,2 @@
-export * from './modulo.module';
-export * from './actores.component';
+//export * from './modulo.module';
+export * from '../actores/actor.service';
