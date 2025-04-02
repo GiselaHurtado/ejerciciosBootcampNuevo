@@ -1,0 +1,17 @@
+<h2>Lista de Actores</h2>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let actor of actores">
+      <td>{{ actor.id }}</td>
+      <td>{{ actor.nombre }}</td>
+      <td>{{ actor.apellidos }}</td>
+    </tr>
+  </tbody>
+</table>

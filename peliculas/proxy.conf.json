@@ -1,0 +1,20 @@
+{
+  "/actores/**": {
+    "target": "http://localhost:8010",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+    
+    "/auth": {
+      "target": "http://localhost:8091",
+      "pathRewrite": { "^/auth": "/" },
+      "secure": false,
+      "logLevel": "debug"
+    },
+    "/api": {
+      "target": "http://localhost:4200",
+      "secure": false,
+      "logLevel": "debug"
+    }
+  }

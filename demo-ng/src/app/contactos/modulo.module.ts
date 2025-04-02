@@ -5,7 +5,7 @@ import { InRoleCanActivate } from '../security';
 
 export const routes: Routes = [
   { path: '', component: ContactosListComponent },
-  { path: 'add', component: ContactosAddComponent, canActivate: [ InRoleCanActivate('Administradores')] },
+  { path: 'add', component: ContactosAddComponent },
   { path: ':id/edit', component: ContactosEditComponent },
   { path: ':id', component: ContactosViewComponent },
   { path: ':id/:kk', component: ContactosViewComponent },
