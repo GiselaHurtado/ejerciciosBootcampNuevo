@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -109,6 +110,21 @@ public class Language implements Serializable {
 		filmsVO.setLanguageVO(null);
 
 		return filmsVO;
+	}
+
+	public boolean isInvalid() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public String getErrorsMessage() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Map<String, String> getErrorsFields() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
