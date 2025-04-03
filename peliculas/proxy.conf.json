@@ -11,6 +11,18 @@
     "changeOrigin": true,
     "logLevel": "debug"
   },
+  "/category/**": {
+    "target": "http://localhost:8010",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/language/**": {
+    "target": "http://localhost:8010",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
     
     "/auth": {
       "target": "http://localhost:8091",

@@ -46,7 +46,16 @@ import { CommonModule } from '@angular/common';
                     <i class="fa-solid fa-film"></i> Películas
                   </a>
                 </li>
-                <!-- Otros links si los necesitas -->
+                <li class="nav-item">
+                  <a class="nav-link" data-bs-dismiss="offcanvas" routerLinkActive="active" routerLink="/category">
+                    <i class="fa-solid fa-layer-group"></i> Categorías
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-bs-dismiss="offcanvas" routerLinkActive="active" routerLink="/language">
+                    <i class="fa-solid fa-language"></i> Idiomas
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
