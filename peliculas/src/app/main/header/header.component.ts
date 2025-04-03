@@ -1,15 +1,4 @@
-// import { Component } from '@angular/core';
-// import { RouterLink, RouterLinkActive } from '@angular/router';
 
-// @Component({
-//   selector: 'app-header',
-//   imports: [RouterLink, RouterLinkActive],
-//   templateUrl: '../header/header.component.html',
-//   styleUrl: './header.component.css'
-// })
-// export class HeaderComponent {
-
-// }
 
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -21,7 +10,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, RouterModule],
   template: `
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" fixed-top>
         <div class="container-fluid">
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark" aria-label="Toggle navigation">
@@ -56,6 +45,7 @@ import { CommonModule } from '@angular/common';
                     <i class="fa-solid fa-language"></i> Idiomas
                   </a>
                 </li>
+                
               </ul>
             </div>
           </div>
