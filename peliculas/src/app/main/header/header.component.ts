@@ -35,7 +35,7 @@ import { CommonModule } from '@angular/common';
                 aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
                 <li class="nav-item">
                   <a class="nav-link" data-bs-dismiss="offcanvas" routerLinkActive="active" routerLink="/actor">
                     <i class="fa-solid fa-users"></i> Actores
@@ -55,7 +55,23 @@ import { CommonModule } from '@angular/common';
     </header>
   `,
   styles: [`
-    /* Aquí puedes agregar estilos específicos para el header */
+    .offcanvas-body {
+      padding: 0; 
+  justify-content: center;
+ 
+  
+    }
+    .nav-link {
+      padding: 1rem;
+      font-size: 2rem;
+      color: #333;
+      
+      
+    }
+    .nav-link:hover {
+      background-color: #f8f9fa;
+     
+    }
   `]
 })
 export class HeaderComponent { }

@@ -24,12 +24,13 @@ import { RouterOutlet } from '@angular/router';
   template: `
     <app-header></app-header>
     <main class="main container">
-      <h1>Catálogo de Películas</h1>
+      <h1></h1>
       <router-outlet></router-outlet>
     </main>
   `,
   styles: [`
-    .main { padding: 1rem; }
+    .main { padding: 1rem;
+    }
   `]
 })
 export class HomeComponent { }

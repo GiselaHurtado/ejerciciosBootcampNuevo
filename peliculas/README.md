@@ -1,59 +1,134 @@
-# Peliculas
+# Catálogo de Películas 🎥🍿
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.5.
+Este proyecto es una aplicación que gestiona un catálogo de películas y actores. Está compuesta por un backend en Java (Spring Boot) que expone una API REST y un frontend en Angular que consume dicha API.
 
-## Development server
+---
 
-To start a local development server, run:
+## Características ✨
 
-```bash
-ng serve
-```
+- **Gestión de Actores 👥:**
+  - Listado paginado de actores  
+  - Consultar actor por ID  
+  - Creación, actualización y eliminación de actores  
+  - Consulta de películas en las que participa un actor
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Gestión de Películas 🎬:**
+  - Listado de películas (en versión corta y detallada)  
+  - Creación, actualización y eliminación de películas  
+  - Consulta de actores (reparto) y categorías de cada película  
+  - Consulta de clasificaciones por edades  
+  - Filtro de películas basado en título, duración, clasificación, etc.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Tecnologías Utilizadas 🛠️
 
-```bash
-ng generate component component-name
-```
+- **Backend:**
+  - Java 17  
+  - Spring Boot  
+  - Spring Data JPA  
+  - Hibernate  
+  - MySQL
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- **Frontend:**
+  - Angular  
+  - Bootstrap (para estilos y responsive)
 
-```bash
-ng generate --help
-```
+- **Documentación de API:**
+  - Swagger / OpenAPI
 
-## Building
+---
 
-To build the project run:
+## Endpoints 📡
 
-```bash
-ng build
-```
+### Gestión de Actores 👥
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- **GET /actores/v1**  
+  Obtiene todos los actores paginados.
 
-## Running unit tests
+- **POST /actores/v1**  
+  Crea un nuevo actor.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- **GET /actores/v1/{id}**  
+  Obtiene un actor por su ID.
 
-```bash
-ng test
-```
+- **PUT /actores/v1/{id}**  
+  Actualiza un actor existente.
 
-## Running end-to-end tests
+- **DELETE /actores/v1/{id}**  
+  Elimina un actor por su ID.
 
-For end-to-end (e2e) testing, run:
+- **GET /actores/v1/{id}/pelis**  
+  Lista las películas en las que participa el actor.
 
-```bash
-ng e2e
-```
+### Gestión de Películas 🎬
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- **GET /peliculas/v1**  
+  - Listado de las películas en versión corta (por defecto).  
+  - Puede paginarse y obtenerse en formato corto o detallado según el parámetro `mode`.
 
-## Additional Resources
+- **POST /peliculas/v1**  
+  Añade una nueva película.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **GET /peliculas/v1/{id}**  
+  Recupera una película.  
+  *Se pueden obtener diferentes formatos:*  
+  - Con `mode=short` → Devuelve un objeto corto (FilmShortDTO).  
+  - Con `mode=details` → Devuelve un objeto con detalles (FilmDetailsDTO).  
+  - Con `mode=edit` → Devuelve la película en formato editable (FilmEditDTO).
+
+- **PUT /peliculas/v1/{id}**  
+  Modifica una película existente. Los identificadores deben coincidir.
+
+- **DELETE /peliculas/v1/{id}**  
+  Borra una película existente.
+
+- **GET /peliculas/v1/{id}/categorias**  
+  Lista las categorías de la película.
+
+- **GET /peliculas/v1/{id}/reparto**  
+  Lista los actores (reparto) de la película.
+
+- **GET /peliculas/v1/clasificaciones**  
+  Lista las clasificaciones por edades disponibles.
+
+- **GET /peliculas/v1/filtro**  
+  Consulta filtrada de películas.  
+  
+  Parámetros de filtrado:  
+  - `title`: que el título contenga un determinado valor  
+  - `minlength` y `maxlength`: duración mínima y máxima  
+  - `rating`: clasificación por edades (G, PG, PG-13, R, NC-17)  
+  - `mode`: formato de salida (short o details)
+
+---
+
+## Schemas 📑
+
+La API utiliza los siguientes schemas:
+
+- **Actor**  
+- **Category**  
+- **FilmShortDTO:** Versión corta de la película (usada en listados).  
+- **FilmDetailsDTO:** Versión detallada de la película.  
+- **FilmEditDTO:** Versión editable para crear o modificar películas.  
+- **ProblemDetail:** Estructura para manejo de errores.  
+- **Titulo:** Utilizado para devolver el título de una película en algunos endpoints.
+
+---
+
+## Instalación y Ejecución 🚀
+
+### Backend
+
+1. Clona el repositorio y abre el proyecto en tu IDE favorito.
+2. Configura la conexión a la base de datos (por ejemplo, en `application.properties` o `application.yml`).
+3. Ejecuta la aplicación Spring Boot.
+4. Accede a la documentación Swagger en `http://localhost:<PUERTO>/swagger-ui.html` para ver y probar la API.
+
+### Frontend
+
+1. Navega a la carpeta del proyecto Angular.
+2. Instala las dependencias con:
+   ```bash
+   npm install
